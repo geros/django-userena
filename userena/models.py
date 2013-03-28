@@ -6,7 +6,6 @@ from django.core.mail import send_mail
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
-from easy_thumbnails.fields import ThumbnailerImageField
 from guardian.shortcuts import get_perms
 from userena import settings as userena_settings
 from userena.managers import UserenaManager, UserenaBaseProfileManager
@@ -209,12 +208,6 @@ class UserenaBaseProfile(models.Model):
     MUGSHOT_SETTINGS = {'size': (userena_settings.USERENA_MUGSHOT_SIZE,
                                  userena_settings.USERENA_MUGSHOT_SIZE),
                         'crop': userena_settings.USERENA_MUGSHOT_CROP_TYPE}
-
-    mugshot = ThumbnailerImageField(_('mugshot'),
-                                    blank=True,
-                                    upload_to=upload_to_mugshot,
-                                    resize_source=MUGSHOT_SETTINGS,
-                                    help_text=_('A personal image displayed in your profile.'))
 
     privacy = models.CharField(_('privacy'),
                                max_length=15,
